@@ -30,7 +30,7 @@ const Header = () => {
           </button>
 
           <button
-            onClick={() => navigate("/about")}
+            onClick={() => navigate("/aboutus")}
             className="relative after:absolute after:left-0 after:-bottom-1 
                        after:h-px after:w-0 after:bg-white 
                        hover:after:w-full after:transition-all duration-500"
