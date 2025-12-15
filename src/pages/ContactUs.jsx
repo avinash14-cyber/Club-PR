@@ -146,7 +146,7 @@ const ContactUs = () => {
 
             <button
               type="submit"
-              className="mt-6 inline-flex items-center justify-center rounded-full bg-[#7A5C45] px-8 py-4 text-white font-medium hover:opacity-90 transition"
+              className="mt-6 inline-flex items-center justify-center rounded-full bg-white border-2 border-black px-8 py-4 text-black font-medium hover:bg-black hover:text-white transition-all-300"
             >
               Send Message
             </button>
