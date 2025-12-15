@@ -38,7 +38,7 @@ const Services = () => {
 
   {/* content */}
   <div className="relative z-10 max-w-6xl mx-auto px-6 py-24 flex flex-col justify-center">
-    <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold leading-tight">
+    <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold leading-tight"style={{ fontFamily: "Inter Tight, sans-serif" }}>
       We provide
       <br />
       different range
@@ -46,7 +46,7 @@ const Services = () => {
       of services
     </h1>
 
-    <p className="mt-8 max-w-3xl text-base md:text-lg text-white/80">
+    <p className="mt-8 max-w-3xl text-base md:text-lg text-white/80" style={{ fontFamily: "Inter Tight, sans-serif" }}>
       Explore our comprehensive suite of services designed to meet your unique
       needs and exceed your expectations. Our expert team is dedicated to
       delivering top‑quality solutions for every project.

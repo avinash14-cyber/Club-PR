@@ -1,238 +1,160 @@
-import { faEnvelope, faPhone, faThumbtack } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import img from '../assets/contactus/contactus_PR.jpg'
-import React from 'react'
-import { socials } from '../constants/Constants'
-import { useRef } from "react";
-import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
-gsap.registerPlugin(useGSAP);
+import React from "react";
+
 const ContactUs = () => {
-     const introRef = useRef(null);
-     const iconsRef = useRef(null);
-     const socialsRef = useRef(null);
-
- useGSAP(
-  () => {
-    const tl = gsap.timeline({ defaults: { duration: 0.8, ease: "power3.out" } });
-
-    tl.from(introRef.current, {
-      y: 40,
-      opacity: 0,
-    })
-    .from(iconsRef.current, {
-      y: 40,
-      opacity: 0,
-    }, "-=0.3"); 
-  },
-  { scope: introRef } // just needs any parent for cleanup
-);
-useGSAP(
-    () => {
-      if (!socialsRef.current) return;
-
-      gsap.from(socialsRef.current.querySelectorAll(".social-item"), {
-        y: 40,
-        opacity: 0,
-        stagger:0.15,
-        duration: 0.8,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: socialsRef.current,
-          start: "top 80%", 
-          toggleActions: "play none none reverse",
-        },
-      });
-    },
-    { scope: socialsRef }
-  );
-
   return (
-    <div className='w-full '>
-        <section className="w-full bg-white ">
+    <>
+      {/* ================= BANNER SECTION ================= */}
+      <section className="relative w-full h-[60vh] min-h-[420px]">
+        {/* Background Image */}
+        <img
+          src="https://images.pexels.com/photos/3182759/pexels-photo-3182759.jpeg"
+          alt="Contact Us Banner"
+          className="absolute inset-0 w-full h-full object-cover"
+        />
 
-            
- <div className="w-full h-[50vh] overflow-hidden relative">
-  <img 
-    src={img} 
-    alt="" 
-    className="w-full h-full object-cover"
-  />
+        {/* Dark Overlay */}
+        <div className="absolute inset-0 bg-black/55" />
 
-  
-  <div className="absolute inset-0 bg-white/20"></div>
-</div>
-
-
-            <div ref={introRef} className="mx-auto max-w-5xl px-6 text-center">
-        {/* Gradient heading */}
-        <h1
-          className="
-            text-5xl font-extrabold leading-tight sm:text-6xl md:text-9xl
-           
-            bg-clip-text text-black
-          "
-        >
-          Contact us
-        </h1>
-
-        {/* Subtitle */}
-        <p className="mt-6 text-sm font-medium text-black/80 sm:text-lg">
-          Reach out to us using the contact information below or fill out the contact
-          form, and we will get back to you as soon as possible.
-        </p>
-      </div>
-
-        <div ref={iconsRef} className="mx-auto flex max-w-5xl mt-8 mb-10 flex-row flex-wrap gap-10 px-4">
-        {/* Email */}
-        <div className="flex items-center gap-4">
-          <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-black text-white">
-            {/* Replace with your icon (SVG / img) */}
-            <span className="text-xl"><FontAwesomeIcon icon={faEnvelope} /></span>
-          </div>
-          <div>
-            <p className="text-sm font-semibold text-black">Send an Email</p>
-            <p className="text-sm text-[#6E505B]">
-              info@launchpoint-venues.com
+        {/* Banner Content */}
+        <div className="relative z-10 h-full flex items-center">
+          <div className="max-w-7xl mx-auto px-6">
+            <h1 className="text-white text-5xl md:text-7xl font-semibold leading-tight">
+              Contact Us
+            </h1>
+            <p className="mt-4 text-lg text-white/80 max-w-xl">
+              Media inquiries, brand collaborations, or general questions —
+              we’re here to help.
             </p>
           </div>
         </div>
+      </section>
 
-        {/* Phone */}
-        <div className="flex items-center gap-4">
-          <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-black text-white">
-            <span className="text-xl"><FontAwesomeIcon icon={faPhone} /></span>
-          </div>
+      {/* ================= CONTACT SECTION ================= */}
+      <section className="w-full bg-white py-24">
+        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+          
+          {/* LEFT SIDE */}
           <div>
-            <p className="text-sm font-semibold text-black">Just Call Us</p>
-            <p className="text-sm text-[#6E505B]">
-              (+353) 123-4567-890
+            <h2 className="text-5xl md:text-6xl font-semibold leading-tight text-black">
+              Let’s Start the
+              <br />
+              Conversation
+            </h2>
+
+            <p className="mt-6 text-lg text-gray-600 max-w-md">
+              Whether you’re looking to elevate your brand presence, explore media
+              opportunities, or collaborate on a campaign — our team is ready to
+              connect. Share a few details and we’ll be in touch shortly.
             </p>
+
+            {/* Contact Card */}
+            <div className="mt-12 bg-[#F3F0ED] rounded-2xl p-8 max-w-md">
+              <h3 className="text-2xl font-medium text-black mb-6">
+                Prefer to Reach Us Directly?
+              </h3>
+
+              <div className="space-y-6 text-gray-700">
+                <div className="flex gap-4">
+                  <span>📍</span>
+                  <div>
+                    <p className="font-medium text-black">Office</p>
+                    <p>
+                      1234 Wilshire Blvd, Suite 200
+                      <br />
+                      Los Angeles, CA 90017
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex gap-4">
+                  <span>📞</span>
+                  <div>
+                    <p className="font-medium text-black">Phone</p>
+                    <p>+1 (212) 123-4567</p>
+                  </div>
+                </div>
+
+                <div className="flex gap-4">
+                  <span>✉️</span>
+                  <div>
+                    <p className="font-medium text-black">Email</p>
+                    <p>press@youragency.com</p>
+                  </div>
+                </div>
+
+                <div className="flex gap-4">
+                  <span>🕒</span>
+                  <div>
+                    <p className="font-medium text-black">Office Hours</p>
+                    <p>
+                      Monday – Saturday
+                      <br />
+                      9:00 AM – 7:00 PM
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
 
-        {/* Location */}
-        <div className="flex items-center gap-4">
-          <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-black text-white">
-            <span className="text-xl"><FontAwesomeIcon icon={faThumbtack} /></span>
-          </div>
-          <div>
-            <p className="text-sm font-semibold text-[#3B162A]">Come Visit Us</p>
-            <p className="text-sm text-[#6E505B]">
-              15th Ave NW Seattle | Washington 98107
-            </p>
-          </div>
-        </div>
-      </div>
-
-
-
-        {/* form */}
-      <div className="mx-auto py-12  max-w-3xl px-4">
-        <div className="rounded-3xl bg-black p-8 text-white shadow-[0_30px_80px_rgba(0,0,0,0.45)]">
+          {/* RIGHT SIDE – FORM */}
           <form className="space-y-6">
-            {/* Full name */}
-            <div className="space-y-2">
-              <label className="text-xs font-semibold tracking-[0.15em] text-white/70">
-                FULLNAME*
+            
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Full Name
               </label>
               <input
                 type="text"
-                placeholder="Write your Fullname"
-                className="w-full rounded-md border border-white/10 bg-white px-4 py-3 text-sm text-white placeholder:text-gray-700 focus:border-[#F7B7D0] focus:outline-none focus:ring-1 focus:ring-[#F7B7D0]"
+                placeholder="Enter your full name"
+                className="w-full rounded-full border border-gray-300 px-5 py-4 focus:outline-none focus:ring-2 focus:ring-black/20"
               />
             </div>
 
-            {/* Email */}
-            <div className="space-y-2">
-              <label className="text-xs font-semibold tracking-[0.15em] text-white/70">
-                EMAIL ADDRESS*
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Email Address
               </label>
               <input
                 type="email"
-                placeholder="Share your best email"
-                className="w-full rounded-md border border-white/10 bg-white px-4 py-3 text-sm text-white placeholder:text-gray-700 focus:border-[#F7B7D0] focus:outline-none focus:ring-1 focus:ring-[#F7B7D0]"
+                placeholder="you@example.com"
+                className="w-full rounded-full border border-gray-300 px-5 py-4 focus:outline-none focus:ring-2 focus:ring-black/20"
               />
             </div>
 
-            {/* Phone + Company */}
-            <div className="grid gap-4 md:grid-cols-2">
-              <div className="space-y-2">
-                <label className="text-xs font-semibold tracking-[0.15em] text-white/70">
-                  PHONE NUMBER*
-                </label>
-                <input
-                  type="tel"
-                  placeholder="Where shall we call you?"
-                  className="w-full rounded-md border border-white/10 bg-white px-4 py-3 text-sm text-white placeholder:text-gray-700 focus:border-[#F7B7D0] focus:outline-none focus:ring-1 focus:ring-[#F7B7D0]"
-                />
-              </div>
-
-              <div className="space-y-2">
-                <label className="text-xs font-semibold tracking-[0.15em] text-white/70">
-                  COMPANY NAME
-                </label>
-                <input
-                  type="text"
-                  placeholder="Write your company name"
-                  className="w-full rounded-md border border-white/10 bg-white px-4 py-3 text-sm text-white placeholder:text-gray-700 focus:border-[#F7B7D0] focus:outline-none focus:ring-1 focus:ring-[#F7B7D0]"
-                />
-              </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Phone Number
+              </label>
+              <input
+                type="tel"
+                placeholder="Enter your number"
+                className="w-full rounded-full border border-gray-300 px-5 py-4 focus:outline-none focus:ring-2 focus:ring-black/20"
+              />
             </div>
 
-            {/* Message */}
-            <div className="space-y-2">
-              <label className="text-xs font-semibold tracking-[0.15em] text-white/70">
-                MESSAGE*
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Message
               </label>
               <textarea
-                rows={5}
-                placeholder="Tell us how can we assist you"
-                className="w-full resize-none rounded-md border border-white/10 bg-white px-4 py-3 text-sm text-white placeholder:text-gray-700 focus:border-[#F7B7D0] focus:outline-none focus:ring-1 focus:ring-[#F7B7D0]"
+                rows="6"
+                placeholder="Tell us about your brand, campaign goals, or media inquiry..."
+                className="w-full rounded-3xl border border-gray-300 px-5 py-4 resize-none focus:outline-none focus:ring-2 focus:ring-black/20"
               />
             </div>
 
-            {/* Button */}
-            <div className="pt-2">
-              <button
-                type="submit"
-                className="rounded-md bg-white px-10 py-3 text-sm font-semibold tracking-[0.12em] text-black shadow-md transition hover:text-white hover:bg-gray-600"
-              >
-                SEND MESSAGE
-              </button>
-            </div>
+            <button
+              type="submit"
+              className="mt-6 inline-flex items-center justify-center rounded-full bg-[#7A5C45] px-8 py-4 text-white font-medium hover:opacity-90 transition"
+            >
+              Send Message
+            </button>
           </form>
         </div>
-      </div>
+      </section>
+    </>
+  );
+};
 
-
-    {/* socials */}
-
-    {/* <div ref={socialsRef} className="mx-auto mt-20 flex max-w-5xl flex-wrap items-center justify-between gap-6 px-4">
-       <div  className="flex  w-full divide-x divide-[#E0D0C4]">
-    {socials.map((item) => (
-      <button
-        key={item.id}
-        className="flex social-item flex-1 flex-col items-center justify-center gap-2 py-3 first:pl-0 last:pr-0 px-4"
-      >
-      <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#2B122F] text-[13px] font-semibold text-[#FFF7EC]">
-              <FontAwesomeIcon className='text-3xl' icon={item.icon} />
-            </span>
-            
-      </button>
-    ))}
-  </div>
-      </div> */}
-
-    </section>
-    </div>
-  )
-}
-
-export default ContactUs
-
-
-
-
-
- 
+export default ContactUs;
