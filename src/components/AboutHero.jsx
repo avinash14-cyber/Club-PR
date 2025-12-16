@@ -25,10 +25,9 @@ const AboutHero = () => {
         rotationY: 0,
       });
 
-      // continuous auto‑spin
       gsap.to(spinner, {
         rotationY: 360,
-        duration: 18,      // slower = smoother
+        duration: 18,
         ease: "none",
         repeat: -1,
       });
@@ -39,23 +38,30 @@ const AboutHero = () => {
   return (
     <section
       ref={sectionRef}
-      className="w-full bg-white text-black py-24 md:py-16 flex flex-col items-center"
+      className="w-full bg-white text-black flex flex-col items-center"
     >
-      <div className="max-w-5xl w-full px-6 text-center mb-16">
+      {/* TEXT */}
+      <div className="max-w-5xl w-full px-6 text-center pt-20 pb-10">
         <h2
-          className="text-5xl md:text-7xl w-full lg:text-[6rem] font-semibold tracking-[0.15em] uppercase leading-tight"
-           style={{ fontFamily: "Inter Tight, sans-serif" }}
+          className="text-5xl md:text-7xl lg:text-[6rem] font-semibold tracking-[0.15em] uppercase leading-tight"
+          style={{ fontFamily: "Inter Tight, sans-serif" }}
         >
           WHO ARE WE?
         </h2>
-        <p className="mt-6 text-base md:text-xl font-medium text-neutral-900" style={{ fontFamily: "Inter Tight, sans-serif" }}>
-A digital agency blending strategy, design, and technology to craft brand experiences that not only stand out visually but also shape the way audiences think, feel, and engage.
+
+        <p
+          className="mt-6 text-base md:text-xl font-medium text-neutral-900"
+          style={{ fontFamily: "Inter Tight, sans-serif" }}
+        >
+          A digital agency blending strategy, design, and technology to craft
+          brand experiences that not only stand out visually but also shape the
+          way audiences think, feel, and engage.
         </p>
       </div>
 
-      {/* 3D spinning ring */}
+      {/* 3D RING */}
       <div
-        className="relative w-full mt-5 flex justify-center"
+        className="relative w-full flex justify-center mt-15 pb-16"
         style={{ perspective: "1400px" }}
       >
         <div
@@ -64,13 +70,12 @@ A digital agency blending strategy, design, and technology to craft brand experi
         >
           {PANELS.map((src, i) => {
             const angle = (360 / PANELS.length) * i;
-            const translateZ = 280; // depth of ring
             return (
               <div
                 key={src}
                 className="absolute inset-0 origin-center overflow-hidden shadow-xl rounded-sm"
                 style={{
-                  transform: `rotateY(${angle}deg) translateZ(${translateZ}px)`,
+                  transform: `rotateY(${angle}deg) translateZ(280px)`,
                   backfaceVisibility: "hidden",
                 }}
               >
@@ -88,4 +93,4 @@ A digital agency blending strategy, design, and technology to craft brand experi
   );
 };
 
-export default AboutHero
+export default AboutHero;

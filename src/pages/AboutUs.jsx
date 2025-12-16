@@ -14,7 +14,7 @@ const AboutSection = () => {
     <>
      
     <AboutHero/>
-    <AboutValues/>
+    {/* <AboutValues/> */}
     <AboutTimeline/>
 
        

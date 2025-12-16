@@ -1,5 +1,8 @@
-import React, { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import React, { useRef, useEffect } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const CARDS = [
   {
@@ -29,104 +32,103 @@ const CARDS = [
 ];
 
 const AboutValues = () => {
-  const containerRef = useRef(null);
+  const sectionRef = useRef(null);
+  const cardsRef = useRef([]);
 
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end end"],
-  });
+  useEffect(() => {
+    cardsRef.current.forEach((card, index) => {
+      gsap.fromTo(
+        card,
+        { y: "120%", opacity: 0, scale: 0.95 },
+        {
+          y: "0%",
+          opacity: 1,
+          scale: 1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: () => `top+=${window.innerHeight * index} top`,
+            end: () => `top+=${window.innerHeight * (index + 1)} top`,
+            scrub: true,
+          },
+        }
+      );
+    });
+
+    return () => ScrollTrigger.getAll().forEach((t) => t.kill());
+  }, []);
 
   return (
-    <section className="w-full bg-white">
-      <div className="max-w-7xl mx-auto px-6 md:px-10 pt-16 md:pt-20">
-        {/* Heading */}
-        <div className="text-center pb-4">
+    <section
+      ref={sectionRef}
+      className="relative w-full bg-white"
+      style={{ height: `${(CARDS.length + 1) * 100}vh` }}
+    >
+      {/* STICKY WRAPPER */}
+      <div className="sticky top-0 h-screen overflow-hidden flex items-center justify-center">
+        {/* HEADING */}
+        <div className="absolute inset-0 mb-25 flex flex-col items-center justify-center text-center px-6 pointer-events-none">
           <h2
-            className="text-4xl md:text-6xl lg:text-[4.5rem] mt-15 font-semibold tracking-[0.15em] uppercase"
-             style={{ fontFamily: "Inter Tight, sans-serif" }}
+            className="text-4xl md:text-6xl lg:text-[4.5rem] font-semibold tracking-[0.15em] uppercase"
+            style={{ fontFamily: "Inter Tight, sans-serif" }}
           >
             Our Values
           </h2>
-          <p className="mt-4 max-w-xl mx-auto text-neutral-700 text-sm md:text-base">
+          <p className="mt-4 max-w-xl text-neutral-700 text-sm md:text-base">
             At the core of our digital agency are four guiding principles that
             shape everything we do.
           </p>
         </div>
-      </div>
 
-      {/* Cards container - minimal height before cards, then stacking section */}
-      <div ref={containerRef} style={{ height: `${30 + CARDS.length * 100}vh` }}>
-        <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden">
-          <div className="max-w-7xl w-full px-6 md:px-10 relative">
-            {CARDS.map((card, index) => {
-              const total = CARDS.length;
+        {/* CARDS */}
+        <div className="relative w-full mb-15 max-w-7xl px-6 md:px-10">
+          {CARDS.map((card, index) => {
+            const imageOnLeft = index % 2 === 0;
 
-              // adjusted progress mapping (keeps buffer at top)
-              const adjustedProgress = useTransform(scrollYProgress, [0, 1], [0, 1]);
+            return (
+              <article
+                key={card.id}
+                ref={(el) => (cardsRef.current[index] = el)}
+                className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-5xl h-[65vh] md:h-[70vh] bg-white shadow-2xl rounded-3xl overflow-hidden"
+                style={{ zIndex: index + 1 }}
+              >
+                <div className="grid grid-cols-1 md:grid-cols-2 h-full">
+                  {/* TEXT CELL */}
+                  <div
+                    className={`${
+                      imageOnLeft ? "order-2" : "order-1"
+                    } flex items-center justify-center px-8 md:px-12`}
+                  >
+                    <div className="text-center max-w-md w-full">
+                      <span className="block text-xs md:text-sm tracking-[0.3em] uppercase text-neutral-400 font-light">
+                        {card.id}
+                      </span>
 
-              const cardProgress = 1 / total;
-              const start = (30 / (30 + total * 100)) + (index * cardProgress * (total * 100) / (30 + total * 100));
-              const end = (30 / (30 + total * 100)) + ((index + 1) * cardProgress * (total * 100) / (30 + total * 100));
+                      <h3
+                        className="mt-4 text-3xl md:text-5xl lg:text-6xl font-bold"
+                        style={{ fontFamily: "Impact, sans-serif" }}
+                      >
+                        {card.title}
+                      </h3>
 
-              const y = useTransform(adjustedProgress, [start, end], ["150%", "0%"]);
-
-              const imageOnLeft = index % 2 === 0;
-
-              return (
-                <motion.article
-                  key={card.id}
-                  style={{
-                    y,
-                    zIndex: index + 1,
-                  }}
-                  className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 mx-auto w-full max-w-5xl bg-white shadow-2xl rounded-3xl overflow-hidden"
-                  initial={{ y: "150%" }}
-                >
-                  {/* Make the grid full height, and force each cell to fill the height */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 w-full h-[55vh] md:h-[70vh]">
-                    {/* TEXT CELL - full height and centered */}
-                    <div
-                      className={
-                        "flex items-center justify-center px-8 md:px-12 h-full " +
-                        (imageOnLeft ? "order-2" : "order-1")
-                      }
-                    >
-                      {/* This wrapper fills the cell and centers content both vertically & horizontally */}
-                      <div className="w-full max-w-lg text-center h-full flex flex-col justify-center items-center px-2">
-                        <span className="text-xs md:text-sm tracking-[0.3em] uppercase text-neutral-400 font-light">
-                          {card.id}
-                        </span>
-
-                        <h3
-                          className="text-3xl md:text-5xl lg:text-6xl font-bold mt-4"
-                          style={{ fontFamily: "Impact, sans-serif" }}
-                        >
-                          {card.title}
-                        </h3>
-
-                        <p className="mt-4 md:mt-6 text-neutral-600 text-base md:text-lg leading-relaxed">
-                          {card.copy}
-                        </p>
-                      </div>
-                    </div>
-
-                    {/* IMAGE CELL - full height so the layout doesn't collapse */}
-                    <div
-                      className={
-                        "h-full w-full " + (imageOnLeft ? "order-1" : "order-2")
-                      }
-                    >
-                      <img
-                        src={card.image}
-                        alt={card.title}
-                        className="w-full h-full object-cover"
-                      />
+                      <p className=" text-neutral-600 text-base md:text-lg leading-relaxed">
+                        {card.copy}
+                      </p>
                     </div>
                   </div>
-                </motion.article>
-              );
-            })}
-          </div>
+
+                  {/* IMAGE CELL */}
+                  <div className={`${imageOnLeft ? "order-1" : "order-2"} h-full`}>
+                    <img
+                      src={card.image}
+                      alt={card.title}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                </div>
+              </article>
+            );
+          })}
         </div>
       </div>
     </section>
